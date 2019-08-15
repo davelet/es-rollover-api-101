@@ -10,5 +10,5 @@
  */module entity {
     exports com.j11.es.dto;
 
-    requires lombok;
+    requires transitive lombok;
 }
