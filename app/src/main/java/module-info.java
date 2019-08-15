@@ -10,4 +10,5 @@
  */
 module app {
     requires controller;
+    requires fastjson;
 }

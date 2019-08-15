@@ -9,4 +9,6 @@
  * @author sheldon yhid: 80752866
  */module entity {
     exports com.j11.es.dto;
+
+    requires lombok;
 }

@@ -10,5 +10,9 @@
  */
 module controller {
     exports com.j11.test.es;
-    requires entity;
+
+    requires transitive entity;
+    requires elasticsearch;
+    requires transport;
+    requires fastjson;
 }
