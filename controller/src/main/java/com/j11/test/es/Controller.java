@@ -73,7 +73,7 @@ public class Controller {
     }
 
     public void save(String string) {
-        RiderLocationTimeSerialDTO dto = JSON.parseObject(string, RiderLocationTimeSerialDTO.class);
+        var dto = JSON.parseObject(string, RiderLocationTimeSerialDTO.class);
         // 1. 检查模板是否存在（第一次需要创建），并滚动
         preIndexCreate();
         // 2. 写入es
@@ -81,13 +81,13 @@ public class Controller {
     }
 
     private void preIndexCreate() {
-        GetIndexTemplatesRequest gitr = new GetIndexTemplatesRequest(yourTemplateName);
+        var gitr = new GetIndexTemplatesRequest(yourTemplateName);
         try {
             GetIndexTemplatesResponse response = transportClient.admin().indices().getTemplates(gitr).get(100, TimeUnit.MILLISECONDS);
             List<IndexTemplateMetaData> list = response.getIndexTemplates();
             if (!list.isEmpty()) {
                 // 模板存在 滚动即可
-                RolloverRequest rr = new RolloverRequest(yourWriteAlias, null);
+                var rr = new RolloverRequest(yourWriteAlias, null);
                 rr.addMaxIndexAgeCondition(new TimeValue(10, TimeUnit.DAYS));
                 rr.addMaxIndexDocsCondition(1_0000_0000);
                 ActionFuture<RolloverResponse> index = transportClient.admin().indices().rolloversIndex(rr);
@@ -125,7 +125,7 @@ public class Controller {
         // rollover应用的场景一般是写入频繁的，这里虽然演示的只有一个对象，但是实际应该把对象缓存起来，够一定数量了调用bulk api
         List<RiderLocationTimeSerialDTO> list = Collections.singletonList(o);
 
-        for (RiderLocationTimeSerialDTO dto : list) {
+        for (var dto : list) {
             Map<String, Object> map = JSON.parseObject(JSON.toJSONString(dto), new TypeReference<Map<String, Object>>() {
             });
             map.remove("timestamp");

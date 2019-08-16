@@ -17,15 +17,15 @@ import com.alibaba.fastjson.JSON;
  */
 public class App {
     public static void main(String[] args) {
-        Controller controller = new Controller();
+        var controller = new Controller();
 
-        RiderLocationTimeSerialDTO dto = new RiderLocationTimeSerialDTO();
+        var dto = new RiderLocationTimeSerialDTO();
         dto.setRiderId(444L);
         dto.setLongitude("120.8438474");
         dto.setLatitude("29.9834793");
         dto.setAccuracy(3.0D);
 
-        LocalDateTime now = LocalDateTime.now();
+        var now = LocalDateTime.now();
         while (now.isBefore(LocalDateTime.of(2019, 10, 10, 20, 9))) {
             dto.setTime(now);
             controller.save(JSON.toJSONString(dto));
